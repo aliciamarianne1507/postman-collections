@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="API Books - v1" tests="1" time="0.380">
+  <testsuite name="Search all books with success" id="13c0a49c-f58e-4445-854c-ae8a803db254" timestamp="2023-10-14T22:38:34.416Z" tests="5" failures="0" errors="0" time="0.380">
+    <testcase name="Status code is 200" time="0.380" classname="ApiBooksV1"/>
+    <testcase name="Validating if the body response isn't null" time="0.380" classname="ApiBooksV1"/>
+    <testcase name="Type of content of pageCount" time="0.380" classname="ApiBooksV1"/>
+    <testcase name="Validating if the body response isn't null - v1" time="0.380" classname="ApiBooksV1"/>
+    <testcase name="Schema is valid" time="0.380" classname="ApiBooksV1"/>
+  </testsuite>
+</testsuites>
