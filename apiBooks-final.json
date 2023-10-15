@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "2f4ff5cb-4e6f-4a39-a4e0-1395f3339594",
+		"name": "API Books - Final Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30334499"
+	},
+	"item": [
+		{
+			"name": "Search all books with success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating if the body response isn't null\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).not.eql(null);",
+							"    pm.expect(response.title).not.eql(null);",
+							"    pm.expect(response.description).not.eql(null);",
+							"    pm.expect(response.pageCount).not.eql(null);",
+							"    pm.expect(response.excerpt).not.eql(null);",
+							"    pm.expect(response.publishDate).not.eql(null);",
+							"});",
+							"",
+							"",
+							"var schema = pm.environment.get(\"apiSchema\");",
+							"pm.test(\"Validating the body response schema\", function () {",
+							"    var response = pm.response.json();",
+							"    _.each(response, function(item){",
+							"        pm.expect(tv4.validate(item, schema)).to.be.true;",
+							"        pm.expect(tv4.validate(item.pageCount, {\"type\": \"number\"})).to.be.true;",
+							"    });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search a specific book with success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating if the body response isn't null\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).not.eql(null);",
+							"    pm.expect(response.title).not.eql(null);",
+							"    pm.expect(response.description).not.eql(null);",
+							"    pm.expect(response.pageCount).not.eql(null);",
+							"    pm.expect(response.excerpt).not.eql(null);",
+							"    pm.expect(response.publishDate).not.eql(null);",
+							"});",
+							"",
+							"",
+							"var schema = pm.environment.get(\"apiSchema\");",
+							"pm.test(\"Validating the body response schema\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"    pm.expect(tv4.validate(response.pageCount, {\"type\": \"number\"})).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/15",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search a specific book with invalid Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Validating the message error\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.title).eq(\"Not Found\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/500",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"500"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a book with success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating if the body response isn't null\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).not.eql(null);",
+							"    pm.expect(response.title).not.eql(null);",
+							"    pm.expect(response.description).not.eql(null);",
+							"    pm.expect(response.pageCount).not.eql(null);",
+							"    pm.expect(response.excerpt).not.eql(null);",
+							"    pm.expect(response.publishDate).not.eql(null);",
+							"});",
+							"",
+							"",
+							"var schema = pm.environment.get(\"apiSchema\");",
+							"pm.test(\"Validating the body response schema\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"    pm.expect(tv4.validate(response.pageCount, {\"type\": \"number\"})).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 50,\n    \"title\": \"Book 50\",\n    \"description\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"pageCount\": 1500,\n    \"excerpt\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"publishDate\": \"2023-10-30T00:23:03.8724378+00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a book with without body request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 415\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"Validating error message\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.title).eq(\"Unsupported Media Type\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a book with empty body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var schema = pm.environment.get(\"apiSchema\");",
+							"pm.test(\"Validating the body response schema\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"    pm.expect(tv4.validate(response.pageCount, {\"type\": \"number\"})).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Validating if the body response\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).not.eql(null);",
+							"    pm.expect(response.title).eql(null);",
+							"    pm.expect(response.description).eql(null);",
+							"    pm.expect(response.pageCount).not.eql(null);",
+							"    pm.expect(response.excerpt).eql(null);",
+							"    pm.expect(response.publishDate).not.eql(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a book with success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating if the body response isn't null\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).not.eql(null);",
+							"    pm.expect(response.title).not.eql(null);",
+							"    pm.expect(response.description).not.eql(null);",
+							"    pm.expect(response.pageCount).not.eql(null);",
+							"    pm.expect(response.excerpt).not.eql(null);",
+							"    pm.expect(response.publishDate).not.eql(null);",
+							"});",
+							"",
+							"",
+							"var schema = pm.environment.get(\"apiSchema\");",
+							"pm.test(\"Validating the body response schema\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"    pm.expect(tv4.validate(response.pageCount, {\"type\": \"number\"})).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 50,\n    \"title\": \"Book 50\",\n    \"description\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"pageCount\": 1500,\n    \"excerpt\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"publishDate\": \"2023-10-30T00:23:03.8724378+00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/15",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a book with passing an inexistent ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 15,\n    \"title\": \"Book 50\",\n    \"description\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"pageCount\": 1500,\n    \"excerpt\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"publishDate\": \"2023-10-30T00:23:03.8724378+00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/500",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"500"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a book with passing an invalid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 15,\n    \"title\": \"Book 50\",\n    \"description\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"pageCount\": 1500,\n    \"excerpt\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\n    \"publishDate\": \"2023-10-30T00:23:03.8724378+00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/String",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"String"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a book with empty body request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var schema = pm.environment.get(\"apiSchema\");",
+							"pm.test(\"Validating the body response schema\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"    pm.expect(tv4.validate(response.pageCount, {\"type\": \"number\"})).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Validating if the body response\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).not.eql(null);",
+							"    pm.expect(response.title).eql(null);",
+							"    pm.expect(response.description).eql(null);",
+							"    pm.expect(response.pageCount).not.eql(null);",
+							"    pm.expect(response.excerpt).eql(null);",
+							"    pm.expect(response.publishDate).not.eql(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/15",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a book with success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/15",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a book with inexistent ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/1500",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"1500"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
