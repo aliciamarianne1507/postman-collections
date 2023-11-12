@@ -50,4 +50,4 @@ Now, when executing our tests we need to inform that we want to have the results
 newman run apiBooks-final.json -e test.postman_environment.json -r html
 
 ```
-For more information, 
+For more details, check my article [here](https://dev.to/m4rri4nne/boost-your-experience-with-postman-part-ii-5cde)
