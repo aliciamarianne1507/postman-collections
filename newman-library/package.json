@@ -1,0 +1,16 @@
+{
+  "name": "postman_exemplos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^6.0.0",
+    "newman-reporter-html": "^1.0.5"
+  }
+}

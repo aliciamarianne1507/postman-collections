@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "5e889bc1-32fa-44c4-b10e-d6e6e655bfb1",
+		"name": "He4rt Collection",
+		"description": "Essa collection foi criada para estudos de como utilizar o postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30334499"
+	},
+	"item": [
+		{
+			"name": "Buscar livros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    console.log(\"Logando a resposta\")",
+							"});",
+							"",
+							"",
+							"pm.test(\"Title is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    responseData.forEach(function (book) {",
+							"        pm.expect(book.title).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Page count is a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    responseData.forEach(function(book) {",
+							"        pm.expect(book.pageCount).to.be.a('number').and.to.satisfy(function(count) {",
+							"            return count >= 0;",
+							"        }, \"Page count should be a non-negative integer\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Publish date is in a valid date format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    ",
+							"    responseData.forEach(function(book) {",
+							"        pm.expect(book.publishDate).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain; v=1.0"
+					}
+				],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar livros Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the id field is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.id).to.be.a('number');",
+							"  pm.expect(responseData.id).to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the title field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.title).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the description field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the pageCount field is a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.pageCount).to.be.a('number').and.to.be.at.least(0, \"Value should be a non-negative integer\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain; v=1.0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 0,\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"pageCount\": 0,\n    \"excerpt\": \"string\",\n    \"publishDate\": \"2023-12-02T13:48:51.713Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar livros Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the id field is a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.id).to.be.a('number').and.to.be.at.least(0, \"Value should be a non-negative integer\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the title field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.title).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the pageCount field is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData.pageCount).to.be.a('number');",
+							"  pm.expect(responseData.pageCount).to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the publishDate field is in a valid date format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.publishDate).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"Invalid date format\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain; v=1.0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 0,\n    \"title\": \"string1\",\n    \"description\": \"string1\",\n    \"pageCount\": 0,\n    \"excerpt\": \"string\",\n    \"publishDate\": \"2023-12-02T13:48:51.713Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Books/0",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Books",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// pre condição ",
+					"// ação ",
+					"// validar certo ",
+					"",
+					"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+					"    console.log(response.json());",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "http://google.com",
+			"type": "string"
+		}
+	]
+}
